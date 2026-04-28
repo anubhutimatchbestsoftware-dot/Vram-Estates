@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  --page-bg: #f5efe7;
+  --foreground: #17120e;
+  --muted: #6c5a4b;
+  --accent: #d4a269;
+  --accent-deep: #8f6338;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--foreground);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+@keyframes loadbar {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
