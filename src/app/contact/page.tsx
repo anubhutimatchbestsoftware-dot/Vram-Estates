@@ -77,7 +77,7 @@ export default function ContactPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         </div>
 
-        <div className="relative z-10 flex min-h-screen items-center px-3 py-20 md:px-12 md:py-24">
+        <div className="relative z-10 flex min-h-screen items-start px-3 pb-16 pt-36 md:px-12 md:pb-20 md:pt-44">
           <div className="mx-auto w-full max-w-[540px]">
             <div className="border border-white/10 bg-black/55 p-4 shadow-2xl backdrop-blur-md md:p-6">
               <div className="mb-5 text-center">
