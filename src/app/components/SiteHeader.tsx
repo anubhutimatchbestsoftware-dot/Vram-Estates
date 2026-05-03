@@ -99,13 +99,13 @@ export default function SiteHeader() {
 
           <button
             type="button"
-            className="z-30 flex h-10 w-10 cursor-pointer flex-col items-center justify-center gap-2 md:hidden"
+            className="z-30 flex h-10 w-10 cursor-pointer flex-col items-center justify-center gap-1.5 md:hidden"
             aria-label="Menu"
             onClick={() => setIsMobileMenuOpen((current) => !current)}
           >
-            <span className="h-1 w-8 bg-white"></span>
-            <span className="h-1 w-8 bg-white"></span>
-            <span className="h-1 w-8 bg-white"></span>
+            <span className="h-px w-5 bg-white"></span>
+            <span className="h-px w-5 bg-white"></span>
+            <span className="h-px w-5 bg-white"></span>
           </button>
         </div>
       </header>
