@@ -2,57 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import MobileMenu from "../../components/MobileMenu";
 import Footer from "../../components/Footer";
+import SiteHeader from "../../components/SiteHeader";
 
 export default function MaxEstates361Page() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="fixed inset-x-0 top-0 z-20 bg-black/90 backdrop-blur-md">
-        <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between px-10 py-[18px] text-white">
-          <Link href="/" className="flex items-center gap-4">
-            <div className="flex items-center justify-center h-16 w-16">
-              <Image src="/images/icon.svg" alt="VRAM Estates Logo" width={120} height={120} className="object-contain" />
-            </div>
-            <div>
-              <p className="text-xl font-semibold tracking-tight">VRAM Estates</p>
-              <p className="text-xs text-white/80">Luxury Property Consultants</p>
-            </div>
-          </Link>
-
-          <nav className="hidden items-center gap-8 text-base text-white/90 md:flex">
-            <Link href="/#home" className="hover:text-white transition">Home</Link>
-            <Link href="/#about" className="hover:text-white transition">About</Link>
-            <Link href="/listings" className="hover:text-white transition">Listings</Link>
-            <Link href="/contact" className="hover:text-white transition">Contact</Link>
-          </nav>
-
-          <button 
-            className="flex flex-col gap-1.5 p-2 z-30" 
-            aria-label="Menu"
-            onClick={toggleMobileMenu}
-          >
-            <span className="h-0.5 w-7 bg-white"></span>
-            <span className="h-0.5 w-7 bg-white"></span>
-            <span className="h-0.5 w-7 bg-white"></span>
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Sidebar Menu */}
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={closeMobileMenu} />
+      <SiteHeader />
 
       {/* Hero Section */}
       <section className="relative h-[60vh] overflow-hidden">

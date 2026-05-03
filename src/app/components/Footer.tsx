@@ -1,18 +1,19 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#18120f] px-6 py-16 text-white md:px-12">
+    <footer className="bg-[#18120f] px-4 py-10 text-white md:px-12 md:py-16">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 md:gap-12">
           {/* Brand */}
-          <div>
-            <div className="flex items-center gap-4">
-              <div className="grid h-14 w-14 place-items-center border border-white/50 font-serif text-2xl font-semibold">
-                VE
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-3">
+              <div className="flex h-14 w-14 items-center justify-center">
+                <Image src="/images/icon.svg" alt="VRAM Estates Logo" width={120} height={120} className="object-contain" />
               </div>
-              <div>
-                <p className="text-xl font-semibold">VRAM Estates</p>
+              <div className="leading-tight">
+                <p className="text-xl font-semibold tracking-tight">VRAM Estates</p>
                 <p className="text-xs text-white/70">Luxury Property Consultants</p>
               </div>
             </div>
@@ -61,7 +62,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <h3 className="text-sm font-semibold uppercase tracking-wider">Contact</h3>
             <ul className="mt-6 space-y-4">
               <li className="flex items-start gap-3 text-sm text-white/70">
@@ -81,7 +82,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-white/50">
+        <div className="mt-10 border-t border-white/10 pt-6 text-center text-sm text-white/50 md:mt-12 md:pt-8">
           <p>&copy; {new Date().getFullYear()} VRAM Estates. All rights reserved.</p>
         </div>
       </div>

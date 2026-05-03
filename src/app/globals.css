@@ -32,6 +32,39 @@ textarea {
   font: inherit;
 }
 
+@media (max-width: 767px) {
+  body {
+    font-size: 16px;
+  }
+
+  main p,
+  main a,
+  main li,
+  main label,
+  main input,
+  main textarea,
+  main button {
+    font-size: 16px;
+  }
+
+  main h1 {
+    font-size: clamp(32px, 10vw, 42px);
+    line-height: 1.12;
+  }
+
+  main h2 {
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.15;
+  }
+
+  header p,
+  footer p,
+  footer a,
+  footer li {
+    overflow-wrap: anywhere;
+  }
+}
+
 @keyframes loadbar {
   from {
     width: 0%;

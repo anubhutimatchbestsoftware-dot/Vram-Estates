@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import Footer from "./components/Footer";
+import SiteHeader from "./components/SiteHeader";
 
 const heroVideos = [
   {
@@ -57,10 +58,9 @@ const listings = [
 ];
 
 export default function Home() {
-  const [activeVideo, setActiveVideo] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeVideo, setActiveVideo] = useState(0);
   const [showArrows, setShowArrows] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const hideArrowsTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -73,7 +73,11 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const nextIsScrolled = window.scrollY > 10;
+      setIsScrolled(nextIsScrolled);
+      if (nextIsScrolled) {
+        setShowArrows(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -108,14 +112,6 @@ export default function Home() {
     setActiveVideo((current) => (current + 1) % heroVideos.length);
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
   return (
     <main className="bg-[var(--page-bg)] text-[var(--foreground)]">
       <section id="home" className="relative min-h-screen overflow-hidden bg-black" onMouseMove={handleMouseMove} onClick={handleClick}>
@@ -128,7 +124,7 @@ export default function Home() {
               }`}
             >
               <video
-                className="absolute inset-0 h-full w-full bg-black object-contain md:object-cover"
+                className="absolute inset-0 h-full w-full bg-black object-cover"
                 style={{ filter: 'brightness(0.7) contrast(0.9)' }}
                 src={video.src}
                 autoPlay
@@ -143,154 +139,25 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
         </div>
 
-        <header className={`fixed inset-x-0 top-0 z-20 transition-all duration-300 ${
-          isScrolled ? "bg-black/90 backdrop-blur-md shadow-lg" : "bg-transparent"
-        }`}>
-          <div className="mx-auto flex w-full max-w-[1600px] items-center justify-between px-10 py-[18px] text-white">
-            <Link href="/" className="flex items-center gap-4">
-              <div className="flex items-center justify-center h-16 w-16">
-                <Image src="/images/icon.svg" alt="VRAM Estates Logo" width={120} height={120} className="object-contain" />
-              </div>
-              <div>
-                <p className="text-xl font-semibold tracking-tight">VRAM Estates</p>
-                <p className="text-xs text-white/80">Luxury Property Consultants</p>
-              </div>
-            </Link>
+        <SiteHeader />
 
-            <nav className="hidden items-center gap-8 text-base text-white/90 md:flex">
-              <Link href="/" className="hover:text-white transition">Home</Link>
-              <Link href="/about" className="hover:text-white transition">About</Link>
-              <Link href="/listings" className="hover:text-white transition">Listings</Link>
-              <Link href="/contact" className="hover:text-white transition">Contact</Link>
-            </nav>
-
-            {/* Hamburger Menu Icon */}
-            <button 
-              className="flex flex-col gap-1.5 p-2 z-30" 
-              aria-label="Menu"
-              onClick={toggleMobileMenu}
-            >
-              <span className="h-0.5 w-7 bg-white"></span>
-              <span className="h-0.5 w-7 bg-white"></span>
-              <span className="h-0.5 w-7 bg-white"></span>
-            </button>
-          </div>
-        </header>
-
-        {/* Mobile Sidebar Menu */}
-        <div 
-          className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
-            isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
-          onClick={closeMobileMenu}
-        />
-        <div 
-          className={`fixed right-0 top-0 z-50 h-full w-80 bg-black/95 backdrop-blur-md shadow-2xl transition-transform duration-300 ${
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between p-6 border-b border-white/10">
-              <h2 className="text-xl font-semibold text-white">Menu</h2>
-              <button 
-                onClick={closeMobileMenu}
-                className="p-2 text-white hover:bg-white/10 rounded"
-                aria-label="Close menu"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <nav className="flex flex-col p-6 gap-2 overflow-y-auto">
-              <Link 
-                href="/#home" 
-                className="px-4 py-3 text-lg text-white/90 hover:bg-white/10 hover:text-white transition rounded"
-                onClick={closeMobileMenu}
-              >
-                Home
-              </Link>
-              <Link 
-                href="/about" 
-                className="px-4 py-3 text-lg text-white/90 hover:bg-white/10 hover:text-white transition rounded"
-                onClick={closeMobileMenu}
-              >
-                About
-              </Link>
-              <div className="px-4 py-3">
-                <p className="text-lg text-white/90 mb-2">Listings</p>
-                <div className="flex flex-col gap-1 ml-4">
-                  <Link
-                    href="/property/dlf-privana-west"
-                    className="px-3 py-2 text-base text-white/80 hover:bg-white/10 hover:text-white transition rounded"
-                    onClick={closeMobileMenu}
-                  >
-                    DLF
-                  </Link>
-                  <Link
-                    href="/property/m3m-golf-estate"
-                    className="px-3 py-2 text-base text-white/80 hover:bg-white/10 hover:text-white transition rounded"
-                    onClick={closeMobileMenu}
-                  >
-                    M3M
-                  </Link>
-                  <Link
-                    href="/property/adani-samsara-vilasa"
-                    className="px-3 py-2 text-base text-white/80 hover:bg-white/10 hover:text-white transition rounded"
-                    onClick={closeMobileMenu}
-                  >
-                    Adani
-                  </Link>
-                  <Link
-                    href="/property/adani-samsara-vilasa"
-                    className="px-3 py-2 text-base text-white/80 hover:bg-white/10 hover:text-white transition rounded"
-                    onClick={closeMobileMenu}
-                  >
-                    Luxury Villa
-                  </Link>
-                  <Link
-                    href="/property/dlf-the-camellias"
-                    className="px-3 py-2 text-base text-white/80 hover:bg-white/10 hover:text-white transition rounded"
-                    onClick={closeMobileMenu}
-                  >
-                    Penthouse Projects
-                  </Link>
-                </div>
-              </div>
-              <Link 
-                href="/contact" 
-                className="px-4 py-3 text-lg text-white/90 hover:bg-white/10 hover:text-white transition rounded"
-                onClick={closeMobileMenu}
-              >
-                Contact
-              </Link>
-            </nav>
-          </div>
-        </div>
-
-        <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-32 text-center md:px-12">
+        <div className="relative z-10 flex min-h-screen items-center justify-center px-6 pb-20 pt-20 text-center md:px-12 md:pt-24">
           <div className="mx-auto max-w-5xl text-white">
             <p className="text-lg leading-8 text-white/82">
               VRAM Estates
             </p>
-            <h1 className="mt-4 font-serif text-[50px] leading-tight tracking-tight text-white">
+            <h1 className="mt-4 font-serif text-[34px] leading-tight tracking-tight text-white sm:text-[40px] md:text-[46px] xl:text-[50px]">
               {heroVideos[activeVideo].title}
             </h1>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/82">
               {heroVideos[activeVideo].caption}
             </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="mt-10 flex items-center justify-center">
               <Link
-                href="#listings"
-                className="min-w-48 border border-white/70 px-8 py-4 text-lg font-medium text-white transition hover:bg-white hover:text-black"
+                href="/contact"
+                className="border border-white/70 px-10 py-4 text-lg font-medium text-white transition hover:bg-white hover:text-black"
               >
-                View Listings
-              </Link>
-              <Link
-                href="/about"
-                className="min-w-48 border border-white/20 bg-white/8 px-8 py-4 text-lg font-medium text-white transition hover:bg-white/14"
-              >
-                About VRAM
+                Join Us
               </Link>
             </div>
           </div>
@@ -300,7 +167,7 @@ export default function Home() {
         <button
           onClick={goToPrevious}
           className={`absolute left-6 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-4 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/70 md:left-12 ${
-            showArrows ? "opacity-100" : "opacity-0 pointer-events-none"
+            showArrows && !isScrolled ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
           aria-label="Previous video"
         >
@@ -312,7 +179,7 @@ export default function Home() {
         <button
           onClick={goToNext}
           className={`absolute right-6 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-4 text-white backdrop-blur-sm transition-all duration-300 hover:bg-black/70 md:right-12 ${
-            showArrows ? "opacity-100" : "opacity-0 pointer-events-none"
+            showArrows && !isScrolled ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
           aria-label="Next video"
         >
